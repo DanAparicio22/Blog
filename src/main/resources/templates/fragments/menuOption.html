@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en" th:fragment="head">
+        <link href="/css/Estilo.css" th:href="@{/css/Estilo.css}" rel="stylesheet" media="screen"/>
+        <script src="/js/funcion.js"></script>
+        <!-- <link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico" /> -->
+    </head>
+    <body th:fragment="body">
+        <ul class="bloque">
+            <li class="bloqueBoton"><a href="/">Home</a></li>
+            <li class="bloqueBoton"><a href="/article/new">Agregar Articulo</a></li>
+        </ul>
+    </body>
+    <div th:fragment="bodyFormLikeArticle">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{title}" />
+        <input type="hidden" th:field="*{date}" />
+        <input type="hidden" th:field="*{text}" />
+        <input type="hidden" th:field="*{likes}" />
+        <input type="hidden" th:field="*{articleCategory.id}" />
+        <input type="hidden" th:field="*{autor.id}" />
+        <input type="hidden" th:field="*{showable}" />
+    </div>
+    <div th:fragment="bodyFormLikeComment">
+        <input type="hidden" id="id" name="id" th:value="${comment.id}" />
+        <input type="hidden" id="text" name="text" th:value="${comment.text}" />
+        <input type="hidden" id="date" name="date" th:value="${comment.date}" />
+        <input type="hidden" id="likes" name="likes" th:value="${comment.likes}" />
+        <input type="hidden" id="articleId" name="articleId" th:value="${comment.articleId.id}" />
+    </div>
+</html>

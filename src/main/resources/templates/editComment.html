@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title>Editando Articulo</title>
+        <!--/*/ <th:block th:include="fragments/menuOption :: head"></th:block> /*/-->
+    </head>
+    <body>
+        <!--/*/ <th:block th:include="fragments/menuOption :: body"></th:block> /*/-->
+        <h2 class="textoMuestra">Detalles del Articulo</h2>
+        <div class="reducirFormulario">
+            <fieldset>
+                <legend class="legendStyle">COMENTARIO</legend>
+                <form th:object="${comment}" th:action="@{/comments}" method="post" class="centralizar">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{articleId}"/>
+                    <input type="hidden" th:field="*{likes}"/>
+                    <input type="hidden" th:field="*{date}"/>
+                    <label class="estiloLabel">Text</label><br/>
+                    <textarea class="bloquear" maxlength="200" rows="4" cols="48" type="text" th:field="*{text}"></textarea><br/>
+                    <label th:if="${#fields.hasErrors('text')}" th:errors="*{text}" /><br/>
+                    <br/>
+                    <input class="estiloBoton" type="submit" name="submit" value="Aceptar"/>
+                </form>
+            </fieldset>
+        </div>
+    </body>
+</html>

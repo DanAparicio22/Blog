@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title>Editando Articulo</title>
+        <!--/*/ <th:block th:include="fragments/menuOption :: head"></th:block> /*/-->
+    </head>
+    <body>
+        <!--/*/ <th:block th:include="fragments/menuOption :: body"></th:block> /*/-->
+        <h2 class="textoMuestra">Detalles del Articulo</h2>
+        <div class="reducirFormulario">
+            <fieldset>
+                <legend class="legendStyle">ARTICULO</legend>
+                <form th:object="${article}" th:action="@{/articles}" method="post" class="centralizar">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{date}"/>
+                    <input type="hidden" th:field="*{likes}"/>
+                    <label class="estiloLabel">Title</label><br/>
+                    <input class="centralizar" size="75" maxlength="75" type="text" th:field="*{title}"/><br/>
+                    <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</label><br/>
+                    <br/>
+                    <label class="estiloLabel">Text</label><br/>
+                    <!-- <input class="centralizar" size="50" type="text" th:field="*{text}"/><br/><br/> -->
+                    <textarea class="bloquear" maxlength="300" rows="6" cols="48" type="text" th:field="*{text}"></textarea><br/>
+                    <label th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text Error</label><br/>
+                    <br/>
+                    <label class="estiloLabel">Article Category</label><br/>
+                    <select th:field="*{articleCategory}">
+                        <option th:each="articleCategory : ${articleCategorys}" th:value="${articleCategory.id}" th:text="${articleCategory.name}">Id</option>
+                    </select><br/><br/>
+                    <label class="estiloLabel">Article Autor</label><br/>
+                    <select th:field="*{autor}">
+                        <option th:each="autor : ${autors}" th:value="${autor.id}" th:text="${autor.name}">Id</option>
+                    </select><br/><br/>
+                    <label class="estiloLabel">Show:</label><label> </label>
+                    <select th:field="*{showable}">
+                        <option value="1">True</option>
+                        <option value="0">False</option>
+                    </select><br/><br/>
+                    <input class="estiloBoton" type="submit" name="submit" value="Aceptar"/>
+                </form>
+            </fieldset>
+        </div>
+    </body>
+</html>

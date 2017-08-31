@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title th:text="${'Articulo ' + article.id}">Articulo</title>
+    </head>
+        <!--/*/ <th:block th:include="fragments/menuOption :: head"></th:block> /*/-->
+    <body>
+        <!--/*/ <th:block th:include="fragments/menuOption :: body"></th:block> /*/-->
+        <h1 class="estiloTitulo" th:text="${article.title}">Titulo</h1><br/>
+        <h4 class="estiloTitulo" th:text="${'Categoria: ' + article.articleCategory.name}" />
+        <fieldset class="estiloTexto">
+            <label class="separador" type="text" th:text="${article.text}"/><br/>
+        </fieldset>
+        <label class="estiloPalabra" th:text="${'Articulo creado el ' + article.date}"></label><br/>
+        <label class="estiloPalabra" th:text="${'Articulo creado por ' + article.autor.name}"></label><br/>
+        <form class="centralizarBotones centralizar" th:object="${article}" method="post">
+            <!--/*/ <th:block th:include="fragments/menuOption :: bodyFormLikeArticle"></th:block> /*/-->
+            <input th:formaction="@{/article/like}" class="estiloBotonMinimo" type="submit" value="Like" />&emsp;
+            <label th:text="${article.likes}"></label>&emsp;
+            <input th:formaction="@{/article/dislike}" class="estiloBotonMinimo" type="submit" value="DisLike" />
+        </form>
+
+        <br/><br/>
+
+        <div class="marginLeftAumentado">
+            <h2 th:text="${#lists.size(article.comment)} + ' comentarios'"/><br/><br/>
+            <div th:each="comment, pos : ${article.comment}">
+                <form class="centralizarBotones" method="post">
+                    <!--/*/ <th:block th:include="fragments/menuOption :: bodyFormLikeComment"></th:block> /*/-->
+                    <label class="estiloLabel" th:text="${'Comentario ' + (pos.index + 1) + ' enviado el ' + comment.date}"/>&nbsp;&nbsp;
+                    <label th:text="${comment.likes}"/><pre class="establecerInline">&#09;</pre>
+                    <input th:formaction="@{/comment/like}" class="estiloBotonMinimo" type="submit" value="Like" />&emsp;
+                    <input th:formaction="@{/comment/dislike}" class="estiloBotonMinimo" type="submit" value="DisLike" />
+                </form>
+                <label class="separador" type="text" th:text="${comment.text}"/><br/><br/>
+
+                <a class="estiloBotonLink" th:href="${'/article/editcomment/' + comment.id}">Editar Comentario</a>&emsp;
+                <!-- <a th:href="${'/article/deletecomment/' + comment.id}">Eliminar Comentario</a> -->
+                <a class="estiloBotonLink" href="#!" th:attr="onclick='javascript:redireccionarPregunta(\'' + ${'/article/deletecomment/' + comment.id} + '\' , \'' + '¿Esta seguro que desea eliminar este comentario?' + '\');'">
+                    Eliminar Comentario
+                </a>
+                <br/><br/><br/>
+            </div>
+
+            <br/><br/>
+            <a class="estiloBoton" th:href="${'/article/newcomment/' + article.id}">Agregar Comentario</a>
+        </div>
+    </body>
+</html>
