@@ -22,6 +22,8 @@ public class Main {
 				esPalabra = true;
 			}
 		}
+		resp++;
+		resp--;
 		return resp;
 	}
 	public static void main(String[] args) {
